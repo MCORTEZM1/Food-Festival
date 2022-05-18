@@ -1,6 +1,7 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 const webpack = require('webpack');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 // create the main config object within the file, options within the obj will tell webpack what to do
 // Not necessary as of webpack v4, but we will use it to be more specific with how webpack will function 
@@ -57,6 +58,36 @@ module.exports = {
         new BundleAnalyzerPlugin({
             analyzerMode: "disable" // the report outputs to an HTML file in dist folder. 
             //Can also set "disable" to temporarily stop auto reporting in browser
+        }),
+        // invoke constructor w keyword 'new' passing an object as the only argument
+        new WebpackPwaManifest({
+            name: 'Food Event',
+            short_name: 'Foodies',
+            description: 'An app that allows you to view upcoming food events.',
+            // specify the homepage for the PWA relative to the location of the manifest file
+            start_url: '../index.html',
+            background_color: '#01579b',
+            theme_color: '#ffffff',
+            // fingerprints tells webpack whether or not it should generate unique fingerprints
+            // so that each time a new manifest is generated it looks like: `manifest.lhge325d.json`
+            fingerprints: false,
+            // inject property determines whether the link to the manifest.json us added to the HTML
+            // Because we are not using fingerprints, set to false.
+            // path to manifest.json will be hard-coded instead
+            inject: false,
+                // fingerprints and inject are specific to the manifest plugin
+            // v5 of this plugin prepends 'auto' the src below. Set to an empty string to prevent that. 
+            publicPath: ' ',
+            // icons value is an array of objects.
+            icons: [{
+            // object contains
+                // path to the icon we want to use
+                src: path.resolve('assets/img/icons/icon-512x512.png'),
+                // this plugin takes the src and creates icons with the dimensions provided as value of sizes: []
+                sizes: [96, 128, 192, 256, 358, 512],
+                // designates where the icons will be sent after the creation of the web manifest is completed by the plugin.
+                destination: path.join('assets',  'icons')
+            }]
         })
     ],
     mode: 'development'
