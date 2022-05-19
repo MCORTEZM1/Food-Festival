@@ -76,7 +76,7 @@ module.exports = {
             // path to manifest.json will be hard-coded instead
             inject: false,
                 // fingerprints and inject are specific to the manifest plugin
-            // v5 of this plugin prepends 'auto' the src below. Set to an empty string to prevent that. 
+            // v5 of this plugin prepends 'auto' the src below. Set to an empty string w a space to prevent that. 
             publicPath: ' ',
             // icons value is an array of objects.
             icons: [{
