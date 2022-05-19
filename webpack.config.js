@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { url } = require('inspector');
 const path = require('path');
 const webpack = require('webpack');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
@@ -86,7 +87,7 @@ module.exports = {
                 // this plugin takes the src and creates icons with the dimensions provided as value of sizes: []
                 sizes: [96, 128, 192, 256, 358, 512],
                 // designates where the icons will be sent after the creation of the web manifest is completed by the plugin.
-                destination: path.join('assets',  'icons')
+                destination: path.join('dist', 'assets',  'icons')
             }]
         })
     ],
